@@ -1,0 +1,21 @@
+name: blank
+
+on:
+  workflow_dispatch:
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Make 50 commits
+        run: |
+          git config user.email "cryptohypegirl0@gmail.com"
+          git config user.name "cryptohypegirl0"
+          for i in $(seq 1 50); do
+            echo "commit $i" > file_$(date +%s)_$i.txt
+            git add .
+            git commit -m "test commit #$i"
+          done
+      - name: Push
+        run: git push
